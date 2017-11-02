@@ -135,10 +135,38 @@ def get_likes():
                 print(user)
 
 
+def post_comment():
+    user_media = get_recent_media_object('self')
+
+    if user_media is not None:
+        if user_media['data']:
+            request_url = BASE_URL + "media/" + user_media['data'][0]['id'] + "/comments"
+
+            comment = input("Enter your comment below:\n")
+
+            payload = {
+                'access_token': IG_ACCESS_TOKEN,
+                'text': comment
+            }
+            requests.post(request_url, payload)
+            print("Comment posted!")
+        else:
+            print("User has no media to comment on.")
+
+#
+# def remove_comment():
+#     user_media = get_recent_media_object('self')
+#
+#     if user_media is not None:
+#         if user_media['data']:
+#             request_url = BASE_URL + "media/" + user_media['data'][0]['id'] + "/comments"
+
+
 self_info()
 # get_self_media()
 # get_user_info()
 # get_user_media()
-set_like()
+# set_like()
 # remove_like()
-get_likes()
+# get_likes()
+post_comment()
